@@ -55,5 +55,6 @@ footer {
 
 .playInfo img {
     width: 3rem;
-    opacity: 1;
+    opacity: 0;
+    transition: opcity 0.5s ease-in;
 }
