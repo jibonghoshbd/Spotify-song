@@ -5,7 +5,8 @@ const songIndex = 0;
 const audioElement = new Audio('songs/1.mp3');
 const masterPlay = document.getElementById('master-play');
 const myProgressBar = document.getElementById('myProgressBar');
-
+const gif = document.getElementById('gif')
+const songLists = document.querySelectorAll('.song-list');
 
 
 let songs = [
@@ -18,7 +19,7 @@ let songs = [
     { songName: "Sakhiyaan - Salam-e-Ishq", filePath: "songs/2.mp3", coverPath: "covers/7.jpg" },
     { songName: "Bhula Dena - Salam-e-Ishq", filePath: "songs/2.mp3", coverPath: "covers/8.jpg" },
     { songName: "Tumhari Kasam - Salam-e-Ishq", filePath: "songs/2.mp3", coverPath: "covers/9.jpg" },
-    { songName: "Na Jaana - Salam-e-Ishq", filePath: "songs/4.mp3", coverPath: "covers/10.jpg" },
+    { songName: "Na Jaana - Salam-e-Ishq", filePath: "songs/4.mp3", coverPath: "covers/10.jpg" }
 ];
 
 // handel paly/push click 
@@ -27,16 +28,23 @@ masterPlay.addEventListener('click', () => {
         audioElement.play();
         masterPlay.classList.remove('fa-play-circle');
         masterPlay.classList.add('fa-pause-circle');
+        gif.style.opacity = 1;
     } else {
         audioElement.pause();
         masterPlay.classList.remove('fa-pause-circle');
         masterPlay.classList.add('fa-play-circle');
+        gif.style.opacity = 0;
     }
 });
 
 
 // listen to events 
 audioElement.addEventListener('timeupdate', () => {
+    // update progress bar  
     const progress = parseInt((audioElement.currentTime / audioElement.duration) * 100);
     myProgressBar.value = progress;
-})
+});
+
+myProgressBar.addEventListener('change', () => {
+    audioElement.currentTime = myProgressBar.value * audioElement.duration / 100;
+});
